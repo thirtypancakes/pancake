@@ -1,10 +1,4 @@
-#include QMK_KEYBOARD_H
-
-enum my_td_keys {
-    RBR,
-    LBR,
-    LYR
-};
+#include "preonic.h"
 
 enum my_keys {
     WINLEFT = LCTL(LGUI(KC_LEFT)),
@@ -32,12 +26,18 @@ enum preonic_keycodes {
     NUMS
 };
 
-typedef struct {
+typedef struct tap_state {
     bool is_press_action;
     uint8_t state;
 } tap;
 
-enum {
+enum my_td_keys {
+    RBR,
+    LBR,
+    LYR
+};
+
+enum  tap_keycodes {
     SINGLE_TAP,
     SINGLE_HOLD,
     DOUBLE_TAP
