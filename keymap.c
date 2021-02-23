@@ -95,7 +95,7 @@ void taplyr_reset(qk_tap_dance_state_t *state, void *user_data);
 
 uint8_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
-        if (!state->pressed) return SINGLE_TAP;
+        if (state->interrupted || !state->pressed) return SINGLE_TAP;
         else return SINGLE_HOLD;
     } else if (state->count == 2) return DOUBLE_TAP;
     else return 8;
@@ -113,7 +113,7 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch (ql_tap_state.state) {
         case SINGLE_TAP:
-            tap_code(KC_NO);
+            register_code(KC_NO);
             break;
         case SINGLE_HOLD:
             layer_on(_LOWER);
@@ -177,7 +177,7 @@ void dance_rbrc_reset(qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
     [LBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lbrc_finished, dance_lbrc_reset),
     [RBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rbrc_finished, dance_rbrc_reset),
-    [LYR] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 200)
+    [LYR] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 150)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
