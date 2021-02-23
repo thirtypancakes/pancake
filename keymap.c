@@ -40,7 +40,8 @@ enum my_td_keys {
 enum tap_keycodes {
     SINGLE_TAP,
     SINGLE_HOLD,
-    DOUBLE_TAP
+    DOUBLE_TAP,
+    DOUBLE_HOLD
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
@@ -54,8 +55,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
       [_LOWER] = LAYOUT_preonic_1x2uC(\
             KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,    KC_F11,    KC_F12,    \
             KC_GRV,   KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_LPRN,  KC_RPRN,  KC_GRV,   KC_RPRN,   KC_ASTR,   KC_PLUS,   _______,   \
-            KC_DEL,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  TD(LBR),  TD(RBR),  KC_MINS,   KC_EQL,    KC_NUHS,   KC_NUBS,   KC_QUOT,  \
-            _______,  _______,  _______,  _______,  _______,  KC_LT,    KC_GT,    KC_LT,    KC_GT,     KC_GT,     _______,    _______,  \
+            KC_DEL,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,  KC_RBRC,  KC_MINS,   KC_EQL,    KC_NUHS,   KC_NUBS,   KC_QUOT,  \
+            _______,  _______,  _______,  _______,  _______,  KC_LCBR,  KC_RCBR,    KC_LT,    KC_GT,     KC_GT,     _______,    _______,  \
             _______,  _______,  _______,  _______,  LOWER,    _______,            RAISE,    KC_MNXT,   KC_VOLD,   KC_VOLU,   KC_MPLY),
 
       [_RAISE] = LAYOUT_preonic_1x2uC(\
@@ -95,9 +96,14 @@ void taplyr_reset(qk_tap_dance_state_t *state, void *user_data);
 
 uint8_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
-        if (state->interrupted || !state->pressed) return SINGLE_TAP;
+        if (state->interrupted || !state->pressed) return SINGLE_HOLD;
         else return SINGLE_HOLD;
-    } else if (state->count == 2) return DOUBLE_TAP;
+    } 
+    else if (state->count == 2) {
+        if (state->interrupted) return DOUBLE_HOLD;
+        else if (state->pressed) return DOUBLE_HOLD;
+        else return DOUBLE_TAP;
+    }
     else return 8;
 }
 
@@ -112,33 +118,15 @@ static tap ql_tap_state = {
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch (ql_tap_state.state) {
-        case SINGLE_TAP:
-            register_code(KC_NO);
-            break;
-        case SINGLE_HOLD:
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            break;
-        case DOUBLE_TAP:
-            // Check to see if the layer is already set
-            if (layer_state_is(_TAPDANCE)) {
-                // If already set, then switch it off
-                layer_off(_TAPDANCE);
-            } else {
-                // If not already set, then switch the layer on
-                layer_on(_TAPDANCE);
-                set_oneshot_layer(_TAPDANCE, ONESHOT_START);
-            }
-            break;
+        case SINGLE_HOLD: layer_on(_LOWER); break;
+        case DOUBLE_HOLD: layer_on(_TAPDANCE); break;
     }
 }
 
 void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
-    // If the key was held down and now is released then switch off the layer
-    if (ql_tap_state.state == SINGLE_HOLD) {
-        layer_off(_LOWER);
-    } else if (ql_tap_state.state == DOUBLE_TAP) { // clear oneshot layer if released
-        clear_oneshot_layer_state(ONESHOT_PRESSED);
+    switch (ql_tap_state.state) {
+        case SINGLE_HOLD: layer_off(_LOWER); break;
+        case DOUBLE_HOLD: layer_off(_TAPDANCE); break;
     }
     ql_tap_state.state = 0;
 }
