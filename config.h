@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(PREONIC_SOUND)
+#    define STARTUP_SONG SONG(USSR_ANTHEM)
 // #define STARTUP_SONG SONG(NO_SOUND)
 
 #    define DEFAULT_LAYER_SONGS \
@@ -38,3 +38,4 @@
 #define ONESHOT_TIMEOUT 3000
 #define USB_POLLING_INTERVAL_MS 1
 #define FORCE_NKRO
+#define DEBOUNCE_TYPE sym_eager_pk

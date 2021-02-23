@@ -37,7 +37,7 @@ enum my_td_keys {
     LYR
 };
 
-enum  tap_keycodes {
+enum tap_keycodes {
     SINGLE_TAP,
     SINGLE_HOLD,
     DOUBLE_TAP
@@ -90,8 +90,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
 uint8_t cur_dance(qk_tap_dance_state_t *state);
 
 // `finished` and `reset` functions for each tapdance keycode
-void altlp_finished(qk_tap_dance_state_t *state, void *user_data);
-void altlp_reset(qk_tap_dance_state_t *state, void *user_data);
+void taplyr_finished(qk_tap_dance_state_t *state, void *user_data);
+void taplyr_reset(qk_tap_dance_state_t *state, void *user_data);
 
 uint8_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
