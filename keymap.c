@@ -6,7 +6,9 @@ enum my_keys {
     WINUP = RGUI(KC_UP),
     WINDOWN = RGUI(KC_DOWN),
     CTRLESC = MT(MOD_RCTL, KC_ESC),
-    SHFTENT = RSFT_T(KC_ENT)
+    SHFTENT = RSFT_T(KC_ENT),
+    MVRGHT = LGUI(LALT(LSFT(KC_RGHT))),
+    MVLEFT = LGUI(LALT(LSFT(KC_LEFT)))
 };
 
 enum preonic_layers {
@@ -50,13 +52,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
             KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,      KC_O,      KC_P,      KC_DEL,    \
             CTRLESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,      KC_L,      KC_SCLN,   KC_QUOT,   \
             KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,   KC_DOT,    KC_SLSH,   SHFTENT,   \
-            KC_LCTL,  _______,  KC_LGUI,  KC_LALT,  TD(LYR),  KC_SPC,             RAISE,    KC_RALT,   KC_RGUI,   _______,   _______),
+            KC_LCTL,  _______,  KC_LGUI,  KC_LALT,  TD(LYR),  KC_SPC,             RAISE,    KC_LALT,   KC_RGUI,   _______,   _______),
 
       [_LOWER] = LAYOUT_preonic_1x2uC(\
             KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,    KC_F11,    KC_F12,    \
             KC_GRV,   KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_LPRN,  KC_RPRN,  KC_GRV,   KC_RPRN,   KC_ASTR,   KC_PLUS,   _______,   \
-            KC_DEL,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,  KC_RBRC,  KC_MINS,   KC_EQL,    KC_NUHS,   KC_NUBS,   KC_QUOT,  \
-            _______,  _______,  _______,  _______,  _______,  KC_LCBR,  KC_RCBR,    KC_LT,    KC_GT,     KC_GT,     _______,    _______,  \
+            KC_DEL,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,  KC_RBRC,  KC_MINS,  KC_EQL,    KC_NUHS,   KC_NUBS,  KC_QUOT,    \
+            _______,  _______,  _______,  _______,  _______,  KC_LCBR,  KC_RCBR,  KC_LT,    KC_GT,     KC_GT,     _______, _______,     \
             _______,  _______,  _______,  _______,  LOWER,    _______,            RAISE,    KC_MNXT,   KC_VOLD,   KC_VOLU,   KC_MPLY),
 
       [_RAISE] = LAYOUT_preonic_1x2uC(\
@@ -78,14 +80,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
             KC_TAB,   _______,  _______,  _______,  _______,  _______,  _______,  KC_7,     KC_8,      KC_9,      KC_PPLS,   KC_QUOT,   \
             KC_ESC,   _______,  _______,  _______,  _______,  _______,  _______,  KC_4,     KC_5,      KC_6,      KC_PCMM,   _______,   \
             KC_LSFT,  _______,  _______,  _______,  _______,  _______,  _______,  KC_1,     KC_2,      KC_3,      KC_PEQL,   KC_ENT,    \
-            _______,  _______,  _______,  _______,  _______,  _______,            _______,  KC_0,     KC_DOT,    _______,   _______),
+            _______,  _______,  _______,  _______,  _______,  _______,            _______,  KC_0,      KC_DOT,    _______,   _______),
 
       [_TAPDANCE] = LAYOUT_preonic_1x2uC(\
-            KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,    KC_F11,    KC_F12,    \
-            _______,  _______,  MU_MOD,   WINUP,    AU_OFF,   _______,  _______,  TERM_ON,  TERM_OFF,  _______,   _______,   KC_BSPC,   \
-            _______,  DF(0),    WINLEFT,  WINDOWN,  WINRIGHT, AG_NORM,  AG_SWAP,  RESET,    DEBUG,     _______,   RGB_HUI,   RGB_HUD,   \
-            _______,  MUV_DE,   MUV_IN,   MU_ON,    MU_OFF,   MI_ON,    MI_OFF,   RGB_TOG,  RGB_MOD,   RGB_RMOD,  RGB_SAI,   RGB_SAD,   \
-            _______,  _______,  _______,  _______,  _______,  _______,            _______,  RGB_SPD,  RGB_SPD,   RGB_VAI,   RGB_VAD),
+            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,   _______,   \
+            _______,  _______,  _______,  WINUP,    _______,  _______,  _______,  _______,  _______,  _______,    _______,   _______,   \
+            _______,  _______,  WINLEFT,  WINDOWN,  WINRIGHT, _______,  _______,  _______,  _______,  _______,    _______,   _______,   \
+            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,   _______,   \
+            _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,    _______,   _______),
 };
 
 uint8_t cur_dance(qk_tap_dance_state_t *state);
@@ -98,7 +100,7 @@ uint8_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return SINGLE_HOLD;
         else return SINGLE_HOLD;
-    } 
+    }
     else if (state->count == 2) {
         if (state->interrupted) return DOUBLE_HOLD;
         else if (state->pressed) return DOUBLE_HOLD;
@@ -118,8 +120,13 @@ static tap ql_tap_state = {
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch (ql_tap_state.state) {
-        case SINGLE_HOLD: layer_on(_LOWER); break;
-        case DOUBLE_HOLD: layer_on(_TAPDANCE); break;
+        case SINGLE_HOLD:
+            layer_on(_LOWER);
+            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            break;
+        case DOUBLE_HOLD:
+            layer_on(_TAPDANCE);
+            break;
     }
 }
 
@@ -165,7 +172,7 @@ void dance_rbrc_reset(qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
     [LBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lbrc_finished, dance_lbrc_reset),
     [RBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rbrc_finished, dance_rbrc_reset),
-    [LYR] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 150)
+    [LYR] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 200)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
