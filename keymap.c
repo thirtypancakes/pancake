@@ -1,4 +1,5 @@
 #include "preonic.h"
+#include "muse.h"
 
 enum my_keys {
     WINLEFT = LCTL(LGUI(KC_LEFT)),
@@ -89,8 +90,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
             _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,   _______,   \
             _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,    _______,   _______),
 };
-
-uint8_t cur_dance(qk_tap_dance_state_t *state);
 
 // `finished` and `reset` functions for each tapdance keycode
 void taplyr_finished(qk_tap_dance_state_t *state, void *user_data);
