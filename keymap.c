@@ -18,7 +18,7 @@ enum preonic_layers {
     _RAISE,
     _ADJUST,
     _NUMS,
-    _TAPDANCE
+    _FUNCTIONS
 };
 
 enum preonic_keycodes {
@@ -49,46 +49,46 @@ enum tap_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
     [_QWERTY] = LAYOUT_ortho_5x12(\
-            KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,      KC_9,      KC_0,      KC_NO,     \
-            KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,      KC_O,      KC_P,      KC_DEL,    \
-            CTRLESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,      KC_L,      KC_SCLN,   KC_QUOT,   \
-            KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,   KC_DOT,    KC_SLSH,   SHFTENT,   \
-            KC_LCTL,  _______,  KC_LGUI,  KC_LALT,  TD(LYR),  KC_SPC,   KC_BSPC,  RAISE,    KC_LALT,   KC_RGUI,   _______,   _______),
+            KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,    KC_6,    KC_7,    KC_8,     KC_9,     KC_0,    KC_NO,    \
+            KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,    KC_DEL,   \
+            CTRLESC, KC_A,    KC_S,    KC_D,    KC_F,     KC_G,    KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN, KC_QUOT,  \
+            KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH, SHFTENT,  \
+            KC_LCTL, _______, KC_LGUI, KC_LALT, TD(LYR),  KC_SPC,  KC_BSPC, RAISE,   KC_LALT,  KC_RGUI,  _______, _______),
 
       [_LOWER] = LAYOUT_ortho_5x12(\
-            KC_F11,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,     KC_F9,     KC_F10,   KC_F12,     \
-            KC_GRV,   KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_LPRN,  KC_RPRN,  KC_GRV,   KC_RPRN,   KC_ASTR,   KC_PLUS,   KC_BSPC,   \
-            KC_DEL,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,  KC_RBRC,  KC_MINS,  KC_EQL,    KC_NUHS,   KC_NUBS,   KC_QUOT,   \
-            _______,  _______,  _______,  _______,  _______,  KC_LCBR,  KC_RCBR,  KC_LT,    KC_LT,     KC_GT,     _______,   _______,   \
-            _______,  _______,  _______,  _______,  LOWER,    _______,  _______,  RAISE,    KC_MNXT,   KC_VOLD,   KC_VOLU,   KC_MPLY),
+            KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,   KC_F7,   KC_F8,    KC_F9,    KC_F10,  KC_F12,   \
+            KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,   KC_LPRN, KC_RPRN, KC_GRV,  KC_RPRN,  KC_ASTR,  KC_PLUS, KC_BSPC,  \
+            KC_DEL,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR,  KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,   KC_NUHS,  KC_NUBS, KC_QUOT,  \
+            _______, _______, _______, _______, _______,  KC_LCBR, KC_RCBR, KC_LT,   KC_LT,    KC_GT,    _______, _______,  \
+            _______, _______, _______, _______, LOWER,    _______, _______, RAISE,   KC_MNXT,  KC_VOLD,  KC_VOLU, KC_MPLY),
 
       [_RAISE] = LAYOUT_ortho_5x12(\
-            KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,    KC_F11,    KC_F12,    \
-            KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,      KC_9,      KC_0,      KC_BSPC,   \
-            KC_DEL,   _______,  _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,     KC_RGHT,   KC_QUOT,   KC_BSLS,   \
-            _______,  KC_BSLS,  _______,  _______,  _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,   KC_END,    _______,   _______,   \
-            _______,  _______,  _______,  _______,  LOWER,    _______,  _______,  RAISE,    KC_MNXT,   KC_VOLD,   KC_VOLU,   KC_MPLY),
+            KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11,  KC_F12,   \
+            KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,    KC_6,    KC_7,    KC_8,     KC_9,     KC_0,    KC_BSPC,  \
+            KC_DEL,  _______, _______, _______, _______,  _______, KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT,  KC_QUOT, KC_BSLS,  \
+            _______, KC_BSLS, _______, _______, _______,  _______, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,   _______, _______,  \
+            _______, _______, _______, _______, LOWER,    _______, _______, RAISE,   KC_MNXT,  KC_VOLD,  KC_VOLU, KC_MPLY),
 
       [_ADJUST] = LAYOUT_ortho_5x12(\
-            KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,    KC_F11,    KC_F12,    \
-            _______,  _______,  MU_MOD,   AU_ON,    AU_OFF,   _______,  _______,  TERM_ON,  TERM_OFF,  _______,   _______,   KC_BSPC,   \
-            _______,  DF(0),    DF(0),    DF(0),    DF(0),    AG_NORM,  AG_SWAP,  RESET,    DEBUG,     _______,   RGB_HUI,   RGB_HUD,   \
-            _______,  MUV_DE,   MUV_IN,   MU_ON,    MU_OFF,   MI_ON,    MI_OFF,   RGB_TOG,  RGB_MOD,   RGB_RMOD,  RGB_SAI,   RGB_SAD,   \
-            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_SPD,   RGB_SPD,   RGB_VAI,   RGB_VAD),
+            KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11,  KC_F12,   \
+            _______, _______, MU_MOD,  AU_ON,   AU_OFF,   _______, _______, TERM_ON, TERM_OFF, _______,  _______, KC_BSPC,  \
+            _______, DF(0),   DF(0),   DF(0),   DF(0),    AG_NORM, AG_SWAP, RESET,   DEBUG,    _______,  RGB_HUI, RGB_HUD,  \
+            _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,   MI_ON,   MI_OFF,  RGB_TOG, RGB_MOD,  RGB_RMOD, RGB_SAI, RGB_SAD,  \
+            _______, _______, _______, _______, _______,  _______, _______, _______, RGB_SPD,  RGB_SPD,  RGB_VAI, RGB_VAD),
 
       [_NUMS] = LAYOUT_ortho_5x12(\
-            DF(0),    _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSLS,   KC_PAST,   KC_PMNS,   KC_BSPC,   \
-            KC_TAB,   _______,  _______,  _______,  _______,  _______,  _______,  KC_7,     KC_8,      KC_9,      KC_PPLS,   KC_QUOT,   \
-            KC_ESC,   _______,  _______,  _______,  _______,  _______,  _______,  KC_4,     KC_5,      KC_6,      KC_PCMM,   _______,   \
-            KC_LSFT,  _______,  _______,  _______,  _______,  _______,  _______,  KC_1,     KC_2,      KC_3,      KC_PEQL,   KC_ENT,    \
-            _______,  _______,  _______,  _______,  _______,  _______, _______,   _______,  KC_0,      KC_DOT,    _______,   _______),
+            DF(0),   _______, _______, _______, _______,  _______, _______, _______, KC_PSLS,  KC_PAST,  KC_PMNS, KC_BSPC,  \
+            KC_TAB,  _______, _______, _______, _______,  _______, _______, KC_7,    KC_8,     KC_9,     KC_PPLS, KC_QUOT,  \
+            KC_ESC,  _______, _______, _______, _______,  _______, _______, KC_4,    KC_5,     KC_6,     KC_PCMM, _______,  \
+            KC_LSFT, _______, _______, _______, _______,  _______, _______, KC_1,    KC_2,     KC_3,     KC_PEQL, KC_ENT,   \
+            _______, _______, _______, _______, _______,  _______, _______, _______, KC_0,     KC_DOT,   _______, _______),
 
-      [_TAPDANCE] = LAYOUT_ortho_5x12(\
-            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,   _______,   \
-            _______,  _______,  _______,  WINUP,    _______,  _______,  _______,  _______,  _______,  _______,    _______,   _______,   \
-            _______,  _______,  WINLEFT,  WINDOWN,  WINRIGHT, _______,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,    _______,   _______,   \
-            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,   KC_BTN1,   \
-            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,   _______),
+      [_FUNCTIONS] = LAYOUT_ortho_5x12(\
+            _______,  MEH(1),  MEH(2),  MEH(3),  MEH(4),   MEH(5),  MEH(6),  MEH(7),  MEH(8),   MEH(9),   MEH(0), _______,  \
+            _______, _______, _______, WINUP,   _______,  _______, _______, _______, _______,  _______,  _______, _______,  \
+            _______, _______, WINLEFT, WINDOWN, WINRIGHT, _______, KC_MS_L, KC_MS_D, KC_MS_U,  KC_MS_R,  _______, _______,  \
+            _______, _______, _______, _______, _______,  _______, _______, _______, _______,  _______,  _______, KC_BTN1,  \
+            _______, _______, _______, _______, _______,  _______, _______, _______, _______,  _______,  _______, _______),
 };
 
 // `finished` and `reset` functions for each tapdance keycode
@@ -124,7 +124,7 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
             break;
         case DOUBLE_HOLD:
-            layer_on(_TAPDANCE);
+            layer_on(_FUNCTIONS);
             break;
     }
 }
@@ -132,7 +132,7 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
 void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (ql_tap_state.state) {
         case SINGLE_HOLD: layer_off(_LOWER); break;
-        case DOUBLE_HOLD: layer_off(_TAPDANCE); break;
+        case DOUBLE_HOLD: layer_off(_FUNCTIONS); break;
     }
     ql_tap_state.state = 0;
 }
