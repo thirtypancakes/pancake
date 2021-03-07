@@ -1,11 +1,11 @@
 #include "preonic.h"
-#include "muse.h"
+#include "muse.h" // nicer beeps
 
 enum my_keys {
     WINLEFT = LCTL(LGUI(KC_LEFT)),
     WINRIGHT = RCTL(RGUI(KC_RGHT)),
     WINUP = RGUI(KC_UP),
-    WINDOWN = RGUI(KC_DOWN),
+    WINMIN = RGUI(KC_M),
     CTRLESC = MT(MOD_RCTL, KC_ESC),
     SHFTENT = RSFT_T(KC_ENT),
     MVRGHT = LGUI(LALT(LSFT(KC_RGHT))),
@@ -86,15 +86,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
       [_FUNCTIONS] = LAYOUT_ortho_5x12(\
             _______,  MEH(1),  MEH(2),  MEH(3),  MEH(4),   MEH(5),  MEH(6),  MEH(7),  MEH(8),   MEH(9),   MEH(0), _______,  \
             _______, _______, _______, WINUP,   _______,  _______, _______, _______, _______,  _______,  _______, _______,  \
-            _______, _______, WINLEFT, WINDOWN, WINRIGHT, _______, KC_MS_L, KC_MS_D, KC_MS_U,  KC_MS_R,  _______, _______,  \
+            _______, _______, WINLEFT, WINMIN,  WINRIGHT, _______, KC_MS_L, KC_MS_D, KC_MS_U,  KC_MS_R,  _______, _______,  \
             _______, _______, _______, _______, _______,  _______, _______, _______, _______,  _______,  _______, KC_BTN1,  \
             _______, _______, _______, _______, _______,  _______, _______, _______, _______,  _______,  _______, _______),
 };
 
-// `finished` and `reset` functions for each tapdance keycode
-void taplyr_finished(qk_tap_dance_state_t *state, void *user_data);
-void taplyr_reset(qk_tap_dance_state_t *state, void *user_data);
+// Initialize tap structure associated with example tap dance key
+static tap ql_tap_state = {
+    .is_press_action = true,
+    .state = 0
+};
 
+// `finished` and `reset` functions for each tapdance keycode
+/* void ql_finished(qk_tap_dance_state_t *state, void *user_data); */
+/* void ql_reset(qk_tap_dance_state_t *state, void *user_data); */
+
+// check tap dance state of LOWER key,
 uint8_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return SINGLE_HOLD;
@@ -108,14 +115,8 @@ uint8_t cur_dance(qk_tap_dance_state_t *state) {
     else return 8;
 }
 
-// Initialize tap structure associated with example tap dance key
-static tap ql_tap_state = {
-    .is_press_action = true,
-    .state = 0
-};
-
-// Functions that control what our tap dance key does
-// I could probably refactor this to remove SINGLE_TAP, but I wont (yet)
+/* function controlling LOWER key, on single hold activate _LOWER
+ * on double hold activate layer _FUNCTIONS */
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch (ql_tap_state.state) {
@@ -129,6 +130,7 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+// cleanup function when tapdance is finished
 void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (ql_tap_state.state) {
         case SINGLE_HOLD: layer_off(_LOWER); break;
