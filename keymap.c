@@ -28,15 +28,7 @@ enum preonic_keycodes {
     ADJUST,
     NUMS
 };
-
-typedef struct tap_state {
-    bool is_press_action;
-    uint8_t state;
-} tap;
-
 enum my_td_keys {
-    RBR,
-    LBR,
     LYR
 };
 
@@ -46,6 +38,13 @@ enum tap_keycodes {
     DOUBLE_TAP,
     DOUBLE_HOLD
 };
+
+
+typedef struct tap_state {
+    bool is_press_action;
+    uint8_t state;
+} tap;
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
     [_QWERTY] = LAYOUT_ortho_5x12(\
@@ -60,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
             KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,   KC_LPRN, KC_RPRN, KC_GRV,  KC_RPRN,  KC_ASTR,  KC_PLUS, KC_BSPC,  \
             KC_DEL,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR,  KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,   KC_NUHS,  KC_NUBS, KC_QUOT,  \
             _______, _______, _______, _______, _______,  KC_LCBR, KC_RCBR, KC_LT,   KC_LT,    KC_GT,    _______, _______,  \
-            _______, _______, _______, _______, LOWER,    _______, _______, RAISE,   KC_MNXT,  KC_VOLD,  KC_VOLU, KC_MPLY),
+            _______, _______, _______, _______, LOWER,    _______, KC_ENT , RAISE,   KC_MNXT,  KC_VOLD,  KC_VOLU, KC_MPLY),
 
       [_RAISE] = LAYOUT_ortho_5x12(\
             KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11,  KC_F12,   \
@@ -84,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
             _______, _______, _______, _______, _______,  _______, _______, _______, KC_0,     KC_DOT,   _______, _______),
 
       [_FUNCTIONS] = LAYOUT_ortho_5x12(\
-            _______,  MEH(1),  MEH(2),  MEH(3),  MEH(4),   MEH(5),  MEH(6),  MEH(7),  MEH(8),   MEH(9),   MEH(0), _______,  \
+            _______,  MEH(KC_1),  MEH(KC_2),  MEH(KC_3),  MEH(KC_4),   MEH(KC_5),  MEH(KC_6),  MEH(KC_7),  MEH(KC_8),   MEH(KC_9),   MEH(KC_0), _______,  \
             _______, _______, _______, WINUP,   _______,  _______, _______, _______, _______,  _______,  _______, _______,  \
             _______, _______, WINLEFT, WINMIN,  WINRIGHT, _______, KC_MS_L, KC_MS_D, KC_MS_U,  KC_MS_R,  _______, _______,  \
             _______, _______, _______, _______, _______,  _______, _______, _______, _______,  _______,  _______, KC_BTN1,  \
@@ -138,41 +137,8 @@ void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
     ql_tap_state.state = 0;
 }
-void dance_lbrc_finished(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code16(KC_LBRC);
-    } else {
-        register_code16(KC_LCBR);
-    }
-}
-
-void dance_lbrc_reset(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        unregister_code16(KC_LBRC);
-    } else {
-        unregister_code16(KC_LCBR);
-    }
-}
-
-void dance_rbrc_finished(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code16(KC_RBRC);
-    } else {
-        register_code16(KC_RCBR);
-    }
-}
-
-void dance_rbrc_reset(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        unregister_code16(KC_RBRC);
-    } else {
-        unregister_code16(KC_RCBR);
-    }
-}
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [LBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lbrc_finished, dance_lbrc_reset),
-    [RBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rbrc_finished, dance_rbrc_reset),
     [LYR] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 200)
 };
 
